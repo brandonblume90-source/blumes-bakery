@@ -6,6 +6,16 @@
     <title>My Google AI Studio App</title>
   </head>
   <body>
+    <!-- A little help for the Netlify post-processing bots -->
+    <form name="order" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="pickupDate" />
+      <input type="text" name="timeframe" />
+      <textarea name="cart_items"></textarea>
+      <input type="text" name="total" />
+    </form>
+    
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

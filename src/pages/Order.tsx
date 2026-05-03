@@ -8,6 +8,8 @@ export default function Order() {
   const [orderComplete, setOrderComplete] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState<Record<number, string>>({});
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const getProduct = (id: number) => FEATURED_ITEMS.find(p => p.id === id);
 
   const cartTotal = cart.reduce((total, item) => {
@@ -18,9 +20,36 @@ export default function Order() {
     return total + (price * item.quantity);
   }, 0);
 
-  const handleCheckoutSubmit = (e: React.FormEvent) => {
+  const handleCheckoutSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setOrderComplete(true);
+    setIsSubmitting(true);
+    
+    const formData = new FormData(e.currentTarget);
+    formData.append('form-name', 'order');
+    
+    // Add cart contents to the form data
+    const orderDetails = cart.map(item => {
+      const product = getProduct(item.id);
+      const option = (product as any).priceOptions.find((o: any) => o.id === item.optionId);
+      return `${item.quantity}x ${product?.name} (${option?.name})`;
+    }).join('\n');
+    
+    formData.append('cart_items', orderDetails);
+    formData.append('total', cartTotal.toFixed(2));
+    
+    try {
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData as any).toString()
+      });
+      setOrderComplete(true);
+    } catch (error) {
+      console.error(error);
+      alert('There was an error submitting your order. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleOptionChange = (id: number, optionId: string) => {
@@ -213,19 +242,21 @@ export default function Order() {
                 <h2 className="text-2xl font-bold font-serif text-bakery-accent-darker mb-2">Almost there!</h2>
                 <p className="text-bakery-ink-medium mb-6">Please enter your details to complete your order.</p>
                 
-                <form onSubmit={handleCheckoutSubmit} className="space-y-4">
+                <form onSubmit={handleCheckoutSubmit} className="space-y-4" name="order" data-netlify="true">
+                  <input type="hidden" name="form-name" value="order" />
                   <div>
                     <label className="block text-sm font-bold text-bakery-ink mb-1">Name</label>
-                    <input required type="text" className="w-full border border-bakery-border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-bakery-accent" placeholder="Jane Doe" />
+                    <input name="name" required type="text" className="w-full border border-bakery-border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-bakery-accent" placeholder="Jane Doe" />
                   </div>
                   <div>
                     <label className="block text-sm font-bold text-bakery-ink mb-1">Email</label>
-                    <input required type="email" className="w-full border border-bakery-border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-bakery-accent" placeholder="jane@example.com" />
+                    <input name="email" required type="email" className="w-full border border-bakery-border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-bakery-accent" placeholder="jane@example.com" />
                   </div>
                    <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-bold text-bakery-ink mb-1">Pickup Date</label>
                         <input 
+                          name="pickupDate"
                           required 
                           type="date" 
                           min={new Date().toISOString().split('T')[0]}
@@ -234,7 +265,7 @@ export default function Order() {
                       </div>
                       <div>
                         <label className="block text-sm font-bold text-bakery-ink mb-1">Timeframe</label>
-                        <select required className="w-full border border-bakery-border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-bakery-accent text-bakery-ink">
+                        <select name="timeframe" required className="w-full border border-bakery-border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-bakery-accent text-bakery-ink">
                           <option value="">Select time...</option>
                           <option>Morning (8am - 12pm)</option>
                           <option>Afternoon (12pm - 4pm)</option>
@@ -243,8 +274,8 @@ export default function Order() {
                       </div>
                     </div>
                   
-                  <button type="submit" className="w-full bg-bakery-accent hover:bg-bakery-accent-hover text-white py-3 rounded-full font-bold shadow-md transition-colors mt-6">
-                    Place Order (${cartTotal.toFixed(2)})
+                  <button type="submit" disabled={isSubmitting} className="w-full bg-bakery-accent hover:bg-bakery-accent-hover disabled:bg-bakery-accent/50 text-white py-3 rounded-full font-bold shadow-md transition-colors mt-6">
+                    {isSubmitting ? 'Processing...' : `Place Order ($${cartTotal.toFixed(2)})`}
                   </button>
                 </form>
               </>
