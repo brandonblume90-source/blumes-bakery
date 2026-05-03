@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Georgia&family=Inter:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Georgia", serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  
+  --color-bakery-bg: #FFFDF5;
+  --color-bakery-bg-alt: #FEF9F0;
+  --color-bakery-ink: #4A3728;
+  --color-bakery-ink-medium: #6D4C41;
+  --color-bakery-ink-light: #6B4F3B;
+  --color-bakery-accent: #D2691E;
+  --color-bakery-accent-hover: #A0522D;
+  --color-bakery-accent-dark: #8B4513;
+  --color-bakery-accent-darker: #5D4037;
+  --color-bakery-border: #F5E6D3;
+}
+
+body {
+  background-color: var(--color-bakery-bg);
+  color: var(--color-bakery-ink);
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3, h4, h5, h6, .font-serif {
+  font-family: var(--font-serif);
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-100px) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.4;
+  }
+  90% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.falling-animation {
+  animation: fall linear infinite;
+}
