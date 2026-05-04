@@ -16,7 +16,7 @@ export default function Footer() {
           <div className="space-y-2 lg:text-right">
             <h4 className="font-bold uppercase tracking-widest text-white">Contact Us</h4>
             <p>317-646-8024</p>
-            <p>blumesbakery@gmail.com</p>
+            <p>order@blumesbakery.com</p>
           </div>
         </div>
         
