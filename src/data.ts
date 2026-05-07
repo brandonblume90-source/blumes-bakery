@@ -6,8 +6,8 @@ export const FEATURED_ITEMS = [
     price: "$5.00 / each",
     priceOptions: [
       { id: 'single', name: '1 Cookie', price: 5.00 },
-      { id: 'half-dozen', name: 'Half Dozen (6)', price: 18.00 },
-      { id: 'dozen', name: 'One Dozen (12)', price: 30.00 }
+      { id: 'half-dozen', name: 'Half Dozen (6)', price: 30.00 },
+      { id: 'dozen', name: 'One Dozen (12)', price: 54.00 }
     ],
     image: "/Gemini_Generated_Image_u2w9t4u2w9t4u2w9.png",
     description: "Our signature classic, baked to perfection. These generously sized cookies boast delightfully crispy, golden edges that yield to an irresistibly thick, soft, and chewy center packed with melting chocolate."
@@ -16,9 +16,9 @@ export const FEATURED_ITEMS = [
     id: 2,
     slug: "cinnamon-rolls",
     name: "Cinnamon Rolls",
-    price: "$24.00 / half dozen",
+    price: "$25.00 / dozen",
     priceOptions: [
-      { id: 'half-dozen', name: 'Half Dozen (6)', price: 24.00 }
+      { id: 'dozen', name: 'One Dozen (12)', price: 25.00 }
     ],
     image: "/Cinnamon Rolls 2.jpg",
     description: "Incredibly soft and pillowy dough rolled with generous layers of rich, buttery cinnamon sugar. Baked until undeniably warm and gooey in the center—the ultimate comfort treat."
@@ -30,8 +30,8 @@ export const FEATURED_ITEMS = [
     price: "$5.00 / each",
     priceOptions: [
       { id: 'single', name: '1 Cookie', price: 5.00 },
-      { id: 'half-dozen', name: 'Half Dozen (6)', price: 18.00 },
-      { id: 'dozen', name: 'One Dozen (12)', price: 30.00 }
+      { id: 'half-dozen', name: 'Half Dozen (6)', price: 30.00 },
+      { id: 'dozen', name: 'One Dozen (12)', price: 54.00 }
     ],
     image: "/Gemini_Generated_Image_ovvp42ovvp42ovvp.png",
     description: "A wonderfully thick and chewy cookie bursting with the warm, caramelized spices of classic cookie butter. Stuffed with crunchy Biscoff pieces for an irresistible flavor."
@@ -43,8 +43,8 @@ export const FEATURED_ITEMS = [
     price: "$5.00 / each",
     priceOptions: [
       { id: 'single', name: '1 Cookie', price: 5.00 },
-      { id: 'half-dozen', name: 'Half Dozen (6)', price: 18.00 },
-      { id: 'dozen', name: 'One Dozen (12)', price: 30.00 }
+      { id: 'half-dozen', name: 'Half Dozen (6)', price: 30.00 },
+      { id: 'dozen', name: 'One Dozen (12)', price: 54.00 }
     ],
     image: "/Gemini_Generated_Image_ovvp42ovvp42ovvp (1).png",
     description: "All the warm, comforting flavors of a fresh cinnamon roll wrapped up in a cookie! This thick, buttery cookie is swirled with rich cinnamon sugar and baked to gooey perfection."
